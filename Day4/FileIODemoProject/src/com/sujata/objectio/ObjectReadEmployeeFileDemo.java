@@ -4,15 +4,15 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 
-public class ObjectReadFileDemo {
+public class ObjectReadEmployeeFileDemo {
 
 	public static void main(String[] args) {
 		
-		try(FileInputStream fis=new FileInputStream("PersonDetails");
+		try(FileInputStream fis=new FileInputStream("EmployeeDetails");
 				ObjectInputStream ois=new ObjectInputStream(fis);){
-			Person person=null;
-			person=(Person)ois.readObject();
-			System.out.println(person);
+			
+			Employee emp=(Employee)ois.readObject();
+			System.out.println(emp);
 //			System.out.println(person.getPersonId()+" "+person.getPersonName());
 			
 		} catch (IOException|ClassNotFoundException e) {
