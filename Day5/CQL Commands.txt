@@ -1,0 +1,309 @@
+
+describe keyspaces;
+
+use wileymthreec131b;
+
+describe tables;
+
+create table employee_by_id
+                    ... (id int PRIMARY KEY,
+                    ... name text,
+                    ... designation text);
+
+describe table employee_by_id;
+
+create table employee_by_car_make
+                    ... (carmake text,
+                    ... id int,
+                    ... car_model text,
+                    ... PRIMARY KEY(carmake,id));
+
+//carmake is partition key and id is clustering key
+
+ describe table employee_by_car_make;
+
+ create table employee_by_car_make_onemore
+                    ... (car_make text,
+                    ... id int,
+                    ... age int,
+                    ... name text,
+                    ... PRIMARY KEY(car_make,age,id));
+//car_make : Partition Key
+//age,id : clustering key (first global sort on age and den internal sort on id inside same age)
+
+describe table employee_by_car_make_onemore;
+
+create table employee_by_car_make_and_model
+                    ... (car_make text,
+                    ... car_model text,
+                    ... id int,
+                    ... name text,
+                    ... PRIMARY KEY((car_make,car_model),id));
+
+//car_make,car_model : Partition Key
+//id : clustering key
+
+describe table employee_by_car_make_and_model;describe table employee_by_car_make_and_model;
+
+ CONSISTENCY
+
+CONSISTENCY QUORUM
+
+CONSISTENCY ONE
+
+CONSISTENCY
+
+describe table employee_by_id;
+
+cqlsh:wileymthreec131b> insert into employee_by_id(id,designation,name) values(1,'Amit','Associate');
+cqlsh:wileymthreec131b> insert into employee_by_id(id,designation,name) values(2,'Bharti','Sr. Associate');
+cqlsh:wileymthreec131b> insert into employee_by_id(id,designation,name) values(3,'Charu','Manager');
+cqlsh:wileymthreec131b> insert into employee_by_id(id,designation,name) values(4,'Deepti','Executive');
+
+select * from employee_by_id;
+
+select * from employee_by_id where id=4;
+
+
+select * from employee_by_id where name='Deepti';
+InvalidRequest: Error from server: code=2200 [Invalid query] message="Cannot execute this query as it might involve data filtering and thus may have unpredictable performance. If you want to execute this query despite the performance unpredictability, use ALLOW FILTERING"
+
+select * from employee_by_id where name='Deepti' ALLOW FILTERING;
+
+update employee_by_id
+                    ... set designation='Executive'
+                    ... where id=4;
+
+
+ insert into employee_by_car_make(carmake,id,car_model) values('BMW',1,'Sports Car');
+
+ select * from employee_by_car_make where carmake='Audi';
+
+ select * from employee_by_car_make where car_model='Sprots Car';
+InvalidRequest: Error from server: code=2200 [Invalid query] message="Cannot execute this query as it might involve data filtering and thus may have unpredictable performance. If you want to execute this query despite the performance unpredictability, use ALLOW FILTERING"
+
+cqlsh:wileymthreec131b> update employee_by_car_make
+                    ... set car_model='A8'
+                    ... where id=5;
+InvalidRequest: Error from server: code=2200 [Invalid query] message="Some partition key parts are missing: carmake"
+cqlsh:wileymthreec131b> update employee_by_car_make
+                    ... set car_model='A8'
+                    ... where id=5 AND carmake='Audi';
+
+insert into employee_by_car_make(carmake,id) values('Audi',3);
+//will not show any new row as already we have row for carmake and id with values Audi and 3
+
+cqlsh:wileymthreec131b> select * from employee_by_car_make;
+
+ carmake | id | car_model
+---------+----+------------
+    Audi |  3 | Sports Car
+    Audi |  4 | Sports Car
+    Audi |  5 |         A8
+     BMW |  1 | Sports Car
+     BMW |  2 |      Truck
+
+(5 rows)
+cqlsh:wileymthreec131b> insert into employee_by_car_make(carmake,id,car_model) values('Audi',3,'A6');
+cqlsh:wileymthreec131b> select * from employee_by_car_make;
+
+ carmake | id | car_model
+---------+----+------------
+    Audi |  3 |         A6
+    Audi |  4 | Sports Car
+    Audi |  5 |         A8
+     BMW |  1 | Sports Car
+     BMW |  2 |      Truck
+
+cqlsh:wileymthreec131b> delete from employee_by_car_make where carmake='Audi' AND id=6;
+//deleted data is marked with a tombstone and are removed after compaction.
+cqlsh:wileymthreec131b> select * from employee_by_car_make;
+
+ carmake | id | car_model
+---------+----+------------
+    Audi |  3 |         A6
+    Audi |  4 | Sports Car
+    Audi |  5 |         A8
+     BMW |  1 | Sports Car
+     BMW |  2 |      Truck
+
+//we can use >,<,>=,<= only on clustering columns
+cqlsh:wileymthreec131b> select * from employee_by_car_make where id<=3 AND carmake='Audi';
+
+ carmake | id | car_model
+---------+----+-----------
+    Audi |  3 |        A6
+
+(1 rows)
+cqlsh:wileymthreec131b> select * from employee_by_car_make where id<=3 AND carmake='BMW';
+
+ carmake | id | car_model
+---------+----+------------
+     BMW |  1 | Sports Car
+     BMW |  2 |      Truck
+
+(2 rows)
+//No OR Operator in cassandra
+cqlsh:wileymthreec131b> select * from employee_by_car_make where id<=3 AND carmake='BMW' OR carmake='Audi';
+SyntaxException: line 1:65 mismatched input 'OR' expecting EOF (...id<=3 AND carmake='BMW' [OR]...)
+cqlsh:wileymthreec131b> select * from employee_by_car_make where id<=3 AND carmake IN('BMW','Audi');
+
+ carmake | id | car_model
+---------+----+------------
+    Audi |  3 |         A6
+     BMW |  1 | Sports Car
+     BMW |  2 |      Truck
+
+(3 rows)
+
+drop table employee_by_car_make;  //drops the data and table structure
+
+truncate employee_by_car_make;   //delete all rows by keeping table structure intact
+
+
+//collection type columns
+cqlsh:wileymthreec131b> select * from employee_by_id;
+
+ id | designation   | name
+----+---------------+--------
+  1 |     Associate |   Amit
+  2 | Sr. Associate | Bharti
+  4 |     Executive | Deepti
+  3 |       Manager |  Charu
+
+(4 rows)
+cqlsh:wileymthreec131b> alter table employee_by_id
+                    ... ADD phone set<text>;
+
+update employee_by_id
+                    ... set phone={'222','555'}
+                    ... where id=1;
+cqlsh:wileymthreec131b> select * from employee_by_id;
+
+ id | designation   | name   | phone
+----+---------------+--------+----------------
+  1 |     Associate |   Amit | {'222', '555'}
+  2 | Sr. Associate | Bharti |           null
+  4 |     Executive | Deepti |           null
+  3 |       Manager |  Charu |           null
+
+(4 rows)
+cqlsh:wileymthreec131b> update employee_by_id
+                    ... set phone=phone+{'345'}
+                    ... where id=1;
+cqlsh:wileymthreec131b> select * from employee_by_id;
+
+ id | designation   | name   | phone
+----+---------------+--------+-----------------------
+  1 |     Associate |   Amit | {'222', '345', '555'}
+  2 | Sr. Associate | Bharti |                  null
+  4 |     Executive | Deepti |                  null
+  3 |       Manager |  Charu |                  null
+
+(4 rows)
+
+cqlsh:wileymthreec131b> update employee_by_id
+                    ... set phone=phone-{'345'}
+                    ... where id=1;
+cqlsh:wileymthreec131b> select * from employee_by_id;
+
+ id | designation   | name   | phone
+----+---------------+--------+----------------
+  1 |     Associate |   Amit | {'222', '555'}
+  2 | Sr. Associate | Bharti |           null
+  4 |     Executive | Deepti |           null
+  3 |       Manager |  Charu |           null
+
+(4 rows)
+
+create table employee_by_uuid
+                    ... (id uuid PRIMARY KEY,
+                    ... first_name text,
+                    ... last_name text);
+
+
+cqlsh:wileymthreec131b> insert into employee_by_uuid(id,first_name,last_name) values(uuid(),'Anshika','Gupta');
+cqlsh:wileymthreec131b> insert into employee_by_uuid(id,first_name,last_name) values(uuid(),'Ahmad','Shaikh');
+cqlsh:wileymthreec131b> insert into employee_by_uuid(id,first_name,last_name) values(uuid(),'Madhav','Modi');
+cqlsh:wileymthreec131b> select * from employee_by_uuid;
+
+ id                                   | first_name | last_name
+--------------------------------------+------------+-----------
+ 8eb579d2-d4bf-4d86-9587-1227f000aa2c |     Madhav |      Modi
+ b9d6d142-332f-42d4-bbc0-9e626363183e |    Anshika |     Gupta
+ 6bd538d3-81b3-40ee-9f4e-de3f3cafb7f8 |      Ahmad |    Shaikh
+
+
+create table employee_by_timeuuid
+                    ... (id timeuuid PRIMARY KEY,
+                    ... first_name text,
+                    ... last_name text);
+cqlsh:wileymthreec131b> insert into employee_by_timeuuid(id,first_name,last_name) values(now(),'Ahmad','Shaikh');
+cqlsh:wileymthreec131b> insert into employee_by_timeuuid(id,first_name,last_name) values(now(),'Madhav','Modi');
+cqlsh:wileymthreec131b> insert into employee_by_timeuuid(id,first_name,last_name) values(now(),'Anshika','Gupta');
+cqlsh:wileymthreec131b> select * from employee_by_timeuuid;
+
+ id                                   | first_name | last_name
+--------------------------------------+------------+-----------
+ 522f9380-eb9b-11eb-8a5a-0f8dbfbcbebe |     Madhav |      Modi
+ 46a6d910-eb9b-11eb-8a5a-0f8dbfbcbebe |      Ahmad |    Shaikh
+ 58e40990-eb9b-11eb-8a5a-0f8dbfbcbebe |    Anshika |     Gupta
+
+cqlsh:wileymthreec131b> create table purchases_by_customer
+                    ... (id uuid PRIMARY KEY,
+                    ... purchases counter);
+
+update purchases_by_customer
+                    ... set purchases=purchases+1
+                    ... where id=uuid();
+cqlsh:wileymthreec131b> select * from purchases_by_customer;
+
+ id                                   | purchases
+--------------------------------------+-----------
+ 4220cce2-9631-491a-baa0-b87fab580603 |         1
+ bb4d3b68-5509-4e80-9fc5-feb2e8689fc4 |         1
+
+(2 rows)
+cqlsh:wileymthreec131b> update purchases_by_customer
+                    ... set purchases=purchases+1
+                    ... where id=4220cce2-9631-491a-baa0-b87fab580603;
+cqlsh:wileymthreec131b> select * from purchases_by_customer;
+
+ id                                   | purchases
+--------------------------------------+-----------
+ 4220cce2-9631-491a-baa0-b87fab580603 |         2
+ bb4d3b68-5509-4e80-9fc5-feb2e8689fc4 |         1
+
+(2 rows)
+
+cqlsh:wileymthreec131b> update purchases_by_customer
+                    ... set purchases=purchases-1
+                    ... where id=4220cce2-9631-491a-baa0-b87fab580603;
+cqlsh:wileymthreec131b> select * from purchases_by_customer;
+
+ id                                   | purchases
+--------------------------------------+-----------
+ 4220cce2-9631-491a-baa0-b87fab580603 |         1
+ bb4d3b68-5509-4e80-9fc5-feb2e8689fc4 |         1
+
+(2 rows)
+
+cqlsh:wileymthreec131b> select * from employee_by_id where id=2;
+
+ id | designation   | name   | phone
+----+---------------+--------+-------
+  2 | Sr. Associate | Bharti |  null
+
+(1 rows)
+cqlsh:wileymthreec131b> select * from employee_by_id where name='Bharti';
+InvalidRequest: Error from server: code=2200 [Invalid query] message="Cannot execute this query as it might involve data filtering and thus may have unpredictable performance. If you want to execute this query despite the performance unpredictability, use ALLOW FILTERING"
+
+cqlsh:wileymthreec131b> create index nameIndex on employee_by_id(name);
+
+cqlsh:wileymthreec131b> select * from employee_by_id where name='Bharti';
+
+ id | designation   | name   | phone
+----+---------------+--------+-------
+  2 | Sr. Associate | Bharti |  null
+
+(1 rows)
