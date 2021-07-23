@@ -307,3 +307,6 @@ cqlsh:wileymthreec131b> select * from employee_by_id where name='Bharti';
   2 | Sr. Associate | Bharti |  null
 
 (1 rows)
+
+insert into employee_by_id(id,designation,name,phone) values(5,'Manager','Esha',{'234','987'})
+                    ... using ttl 60;
