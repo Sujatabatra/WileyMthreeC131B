@@ -66,7 +66,7 @@ public class BinarySearchTree {
 			
 			root.data=minValue(root.right);
 			
-			root.right=deleteValue(root.right, key);
+			root.right=deleteValue(root.right, root.data);
 		}
 		return root;
 	}
