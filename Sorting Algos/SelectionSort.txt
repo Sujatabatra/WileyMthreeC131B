@@ -2,7 +2,7 @@ package com.deepika.demo;
 
 import java.util.Scanner;
 
-public class SelectionSorting {
+public class SelectionSort {
 	void selectionSort(int n,int arr[]) {
 		for(int i=0;i<n;i++) {
 			for(int j=i+1;j<n;j++) {
