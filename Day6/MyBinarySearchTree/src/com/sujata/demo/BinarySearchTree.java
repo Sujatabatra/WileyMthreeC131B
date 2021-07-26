@@ -44,5 +44,40 @@ public class BinarySearchTree {
 		inorderRec(root);
 		
 	}
+	
+	public void delete(int key) {
+		root=deleteValue(root,key);
+	}
+	
+	private Node deleteValue(Node root,int key) {
+		//if tree is empty
+		if(root==null)
+			return root;
+		
+		if(key<root.data)
+			root.left=deleteValue(root.left, key);
+		else if(key>root.data)
+			root.right=deleteValue(root.right, key);
+		else {
+			if(root.left==null)
+				return root.right;
+			else if(root.right==null)
+				return root.left;
+			
+			root.data=minValue(root.right);
+			
+			root.right=deleteValue(root.right, key);
+		}
+		return root;
+	}
+	
+	private int minValue(Node root) {
+		int minVal=root.data;
+		while(root.left!=null) {
+			minVal=root.left.data;
+			root=root.left;
+		}
+		return minVal;
+	}
 
 }

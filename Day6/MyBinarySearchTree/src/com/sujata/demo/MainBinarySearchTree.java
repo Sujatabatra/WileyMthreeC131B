@@ -10,7 +10,8 @@ public class MainBinarySearchTree {
 		while(true) {
 			System.out.println("1. Add Element");
 			System.out.println("2. Inorder Traversal");
-			System.out.println("3. Exit");
+			System.out.println("3. Delete Element");
+			System.out.println("4. Exit");
 			System.out.println("Enter Choice : ");
 			int choice=sc.nextInt();
 			switch(choice) {
@@ -23,6 +24,11 @@ public class MainBinarySearchTree {
 				binarySearchTree.inorder();
 				break;
 			case 3:
+				System.out.println("Enter element you want to delete : ");
+				int ele=sc.nextInt();
+				binarySearchTree.delete(ele);
+				break;
+			case 4:
 				System.out.println("Thanks for creating Binary Search Tree");
 				System.exit(0);
 			}
