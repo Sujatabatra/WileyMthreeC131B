@@ -2,14 +2,16 @@ package com.sujata.training;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Scanner;
 
-public class MySecondJDBCClass {
 
-	public static void main(String args[]) {
+
+public class MyThirdJDBCClass {
+
+	public static void main(String[] args) {
 		Connection connection=null;
 		Scanner sc=new Scanner(System.in);
 		try {
@@ -19,6 +21,10 @@ public class MySecondJDBCClass {
 		Class.forName("com.mysql.cj.jdbc.Driver");
 		//1.2 Connect to Database
 		connection=DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/wileyc112", "root", "sujata");
+		
+		
+		//2. Query
+		PreparedStatement preparedStatement=connection.prepareStatement("INSERT INTO EMP(ID,NAME,DESIGNATION,DEPARTMENT,SALARY) VALUES(?,?,?,?,?)");
 		
 		System.out.println("Enter Employee id : ");
 		int id=sc.nextInt();
@@ -30,12 +36,17 @@ public class MySecondJDBCClass {
 		String deptt=sc.next();
 		System.out.println("Enter Employee Salary : ");
 		int sal=sc.nextInt();
-		//2. Query
-		Statement statement=connection.createStatement();
 		
-		String query="INSERT INTO EMP(ID,NAME,DESIGNATION,DEPARTMENT,SALARY) VALUES("+id+",'"+name+"','"+desig+"','"+deptt+"',"+sal+")";
 		
-		int rows=statement.executeUpdate(query);
+		preparedStatement.setInt(1, id);
+		preparedStatement.setString(2, name);
+		preparedStatement.setString(3, desig);
+		preparedStatement.setString(4, deptt);
+		preparedStatement.setInt(5, sal);
+		
+
+		
+		int rows=preparedStatement.executeUpdate();
 		
 		//3.Process the result
 		if(rows>0)
@@ -54,5 +65,7 @@ public class MySecondJDBCClass {
 				e.printStackTrace();
 			}
 		}
+
 	}
+
 }
