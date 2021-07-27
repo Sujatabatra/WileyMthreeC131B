@@ -1,0 +1,36 @@
+public class Sorting {
+
+	int ar[];
+
+	@Override
+	public void sort(int[] ar) {
+		this.ar = ar;
+		radixSort();
+
+	}
+	//complexity will be O(n) for very large number of elements
+	//Can be used to sort date, like first by year, then by months and then by day
+	public void radixSort() {
+		for(int x=1;x<=1000;x*=10) {
+			int count[]=new int[10];
+			int out[]=new int[ar.length];
+			for(int y=0;y<ar.length;y++) {
+				int val=(ar[y]/x)%10;
+				count[val]++;
+			}
+			for(int y=1;y<10;y++) {
+				count[y]+=count[y-1];
+			}
+			
+			for(int y=ar.length-1;y>=0;y--) {
+				int val=(ar[y]/x)%10;
+				out[count[val]-1]=ar[y];
+				count[val]--;
+			}
+			for(int y=0;y<ar.length;y++) {
+				ar[y]=out[y];
+			}
+
+		}
+	}
+}
