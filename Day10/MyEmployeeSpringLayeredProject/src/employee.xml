@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+	<bean id="empDao" class="com.sujata.persistence.EmployeeDaoImpl"></bean>
+	
+	<bean id="empService" class="com.sujata.service.EmployeeServiceImpl">
+		<property name="empDao" ref="empDao"></property>
+	</bean>
+	
+	<bean id="empPresentation" class="com.sujata.presentation.EmployeePresentationImpl">
+		<constructor-arg name="employeeService" ref="empService"></constructor-arg>
+	</bean>
+	
+</beans>
