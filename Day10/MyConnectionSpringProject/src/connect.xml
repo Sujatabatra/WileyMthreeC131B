@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+	<bean id="mySQL" class="com.sujata.producer.MyDBConnection">
+		<property name="driverName" value="MySQL Driver"></property>
+		<property name="url" value="MySQL URL"></property>
+		<property name="username" value="root"></property>
+		<property name="password" value="sujata"></property>
+	</bean>
+	
+	<bean id="Oracle" class="com.sujata.producer.MyDBConnection">
+		<property name="driverName" value="Oracle Driver"></property>
+		<property name="url" value="Oracle URL"></property>
+		<property name="username" value="scott"></property>
+		<property name="password" value="tiger"></property>
+	</bean>
+	
+</beans>
