@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="Prateek" class="com.sujata.producer.Singer">
+		<property name="songs" >
+			<set>
+				<value>Chennai Express</value>
+				<value>Namma Stories</value>
+				<value>Butta Bomma</value>
+				<value>Kolaveri D</value>
+				<value>Vaathi Coming</value>
+			</set>
+		</property>
+	</bean>
+	<bean id="Yajash" class="com.sujata.producer.Actor">
+		<constructor-arg name="scenes">
+			<list>
+				<value>Comedy</value>
+				<value>Romantic</value>
+				<value>Sad</value>
+				<value>Action</value>
+			</list>
+		</constructor-arg>
+	</bean>
+	
+	<bean id="Yashwanth" class="com.sujata.producer.SpecialDancer">
+		<property name="songsStyle">
+			<props>
+				<prop key="EDM">Break Dance</prop>
+				<prop key="3 Peg">Punjabi Bhangra</prop>
+				<prop key="Mass">Teen Mar Dance</prop>
+				<prop key="Senorita">Salsa</prop>
+			</props>
+		</property>
+	</bean>
+	<bean id="Mahesh" class="com.sujata.producer.Dancer">
+		<constructor-arg name="style" value="Kuchipuri"></constructor-arg>
+		<constructor-arg name="song" value="LALALALA"></constructor-arg>
+	</bean>
+	
+	<bean id="Madhav" class="com.sujata.producer.Juggler">
+		<constructor-arg name="propsCount">
+			<map>
+				<entry key="balls" value="3"></entry>
+				<entry key="bottles" value="5"></entry>
+				<entry key="rings" value="7"></entry>
+			</map>
+		</constructor-arg>
+	</bean>
+
+	<bean id="guitar" class="com.sujata.producer.Guitar"></bean>
+	<bean id="drum" class="com.sujata.producer.Drum"></bean>
+	<bean id="tabla" class="com.sujata.producer.Tabla"></bean>
+	
+	<bean id="Deepika" class="com.sujata.producer.Instrumentalist">
+		<property name="songsInstrument">
+			<map>
+				<entry key="Perfect" value-ref="guitar"></entry>
+				<entry key="Dhadak" value-ref="drum"></entry>
+				<entry key="Chaturnaar" value-ref="tabla"></entry>
+				<entry key="Happy Birthday to you" value-ref="guitar"></entry>
+			</map>
+		</property>
+	</bean>
+</beans>
