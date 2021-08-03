@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
+	default-init-method="customInit" default-destroy-method="customDestroy" >
+  
+	<bean id="Keerthivasan" class="com.sujata.producer.Singer" 
+	init-method="customInitForKeerthivasan" destroy-method="customDestroyForKeerthivasan">
+		<property name="song" value="Chennai Express"></property>
+	</bean>
+	
+	<bean id="Ahmad" class="com.sujata.producer.Singer" 
+	init-method="customInitForAhmad" destroy-method="customDestroyForAhmad">
+		<property name="song" value="Chaiya Chaiya"></property>
+	</bean>
+	
+	<bean class="org.springframework.context.annotation.CommonAnnotationBeanPostProcessor"></bean>
+	<!--  
+	<bean id="Mahesh" class="com.sujata.producer.Dancer">
+		<constructor-arg name="style" value="Kuchipuri"></constructor-arg>
+	</bean>
+	
+	<bean id="Madhav" class="com.sujata.producer.Juggler">
+		<constructor-arg name="balls" value="3"></constructor-arg>
+	</bean>
+
+	<bean id="guitar" class="com.sujata.producer.Guitar"></bean>
+	<bean id="drum" class="com.sujata.producer.Drum"></bean>
+	<bean id="tabla" class="com.sujata.producer.Tabla"></bean>
+	
+	<bean id="Deepika" class="com.sujata.producer.Instrumentalist">
+		<property name="instrument" ref="guitar"></property>
+	</bean>
+	-->
+	<bean id="globalInitilization" class="com.sujata.producer.GlobalInitialization"></bean>
+</beans>
