@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+<!-- 
+Arithmetic Operator : +,-,*,/,%,^
+Relational Operator : <,>,<=,>=,== / lt,gt,le,ge,eq
+Logical Operator : and,or,not,|
+Conditional Operator : condition ?true :false
+Regular Expression : matches
+ -->
+	<!-- Constructor Injection -->
+	<bean id="Saumya" class="com.sujata.producer.Singer">
+		<constructor-arg name="song"
+			value="#{'Thinking Out Loud'}"></constructor-arg>
+	</bean>
+
+	<bean id="Aditya" class="com.sujata.producer.Singer">
+		<constructor-arg name="song" value="#{Saumya.song matches 'T*[a-z,A-z]*?'Song1':'Song2'}"></constructor-arg>
+	</bean>
+	<bean id="Aryan" class="com.sujata.producer.Dancer">
+		<constructor-arg name="style" value='#{"HipHop"}'></constructor-arg>
+	</bean>
+
+	<bean id="Amber" class="com.sujata.producer.Dancer">
+		<constructor-arg name="style" value='#{Aryan.style.toUpperCase()}'></constructor-arg>
+	</bean>
+	
+	<!-- Setter Injection -->
+	<bean id="Kratika" class="com.sujata.producer.Juggler">
+		<property name="balls" value="#{3}"></property>
+	</bean>
+
+	<bean id="Bhanu" class="com.sujata.producer.Juggler">
+		<property name="balls" value="#{Kratika.balls>2?Kratika.balls^2:6}"></property>
+	</bean>
+
+	<bean id="guit" class="com.sujata.producer.Guitar"></bean>
+
+	<bean id="drum" class="com.sujata.producer.Drum"></bean>
+
+	<bean id="tabla" class="com.sujata.producer.Tabla"></bean>
+
+	<bean id="Vasu" class="com.sujata.producer.Instrumentalist">
+		<property name="instrument" ref="guit"></property>
+	</bean>
+
+	<bean id="Gourav" class="com.sujata.producer.Instrumentalist">
+		<property name="instrument" value="#{drum}"></property>
+	</bean>
+
+</beans>
