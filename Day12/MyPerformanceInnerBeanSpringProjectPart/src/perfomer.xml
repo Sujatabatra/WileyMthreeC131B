@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="Keerthivasan" class="com.sujata.producer.Singer">
+		<property name="song" value="Chennai Express"></property>
+	</bean>
+	
+	<bean id="Mahesh" class="com.sujata.producer.Dancer">
+		<constructor-arg name="style" value="Kuchipuri"></constructor-arg>
+	</bean>
+	
+	<bean id="Madhav" class="com.sujata.producer.Juggler">
+		<constructor-arg name="balls" value="3"></constructor-arg>
+	</bean>
+
+	
+	<bean id="Deepika" class="com.sujata.producer.Instrumentalist" scope="prototype">
+		<property name="instrument">
+			<bean id="" class="com.sujata.producer.Guitar"></bean>
+		</property>
+	</bean>
+</beans>

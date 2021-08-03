@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+	<!-- <bean id="Saumya" class="com.sujata.producer.Singer" scope="prototype"> 
+		<constructor-arg name="song" value="Thinking Out Loud"></constructor-arg> 
+		</bean> -->
+
+	<bean id="Saumya" class="com.sujata.producer.Singer">
+		<constructor-arg name="song" value="Thinking Out Loud"></constructor-arg>
+	</bean>
+	<bean id="Aryan" class="com.sujata.producer.Dancer"
+		lazy-init="true">
+		<constructor-arg name="style" value="HipHop"></constructor-arg>
+	</bean>
+
+
+	<bean id="Kratika" class="com.sujata.producer.Juggler">
+		<property name="balls" value="4"></property>
+	</bean>
+
+	<bean id="instanceOfFactory"
+		class="com.sujata.demo.EmployeeFactory"></bean>
+
+	<bean id="salaried" factory-bean="instanceOfFactory"
+		factory-method="getSalariedEmployee"></bean>
+
+	<bean id="waged" factory-bean="instanceOfFactory"
+		factory-method="getWagedEmployee"></bean>
+		
+</beans>
