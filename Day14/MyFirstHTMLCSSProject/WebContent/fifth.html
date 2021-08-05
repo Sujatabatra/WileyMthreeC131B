@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+
+<link href="mystyle.css" rel="stylesheet">
+</head>
+<body>
+<!-- Inline CSS -->
+<h1 style="color: green;">Employee Form</h1>
+<form action="./myserverResource" method="post">
+	Enter Employee Name : <input type="text" name="empName"><br><br>
+	Enter Employee Password : <input type="password" name="empPassword"><br><br>
+	Select Gender : <input type="radio" name="gender" value="m">Male
+	<input type="radio" name="gender" value="f">Female<br><br>
+	Enter Date of Joining : <input type="date" name="empDoj"><br><br>
+	Select Hobbies : <input type="checkbox" name="empHobbies" value="reading">Reading
+	<input type="checkbox" name="empHobbies" value="writing">Writing
+	<input type="checkbox" name="empHobbies" value="travelling">Travelling<br><br>
+	Select Department : <select name="empDeptt">
+		<option value="Sales">Sales</option>
+		<option value="Marketing">Marketing</option>
+		<option value="IT">IT</option>
+		<option value="Purchase">Purchase</option>
+	</select><br><br>
+	Select Favourite color : <input type="color" name="empColor"><br><br>
+	<input type="submit" value="Save">
+</form>
+</body>
+</html>
