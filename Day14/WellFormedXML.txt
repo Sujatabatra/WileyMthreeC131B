@@ -1,0 +1,12 @@
+Well Formed XML
+
+1. every xml file must have just one root element
+2. all opening tags must have a closing tag
+3. all attribute values must be enclosed in double quotes
+4. all the elements must be nested correctly i.e. if we have nesting of elements like
+<parents>
+	<child>
+		<subchild>
+		</subchild>
+	</child>
+</parent>
