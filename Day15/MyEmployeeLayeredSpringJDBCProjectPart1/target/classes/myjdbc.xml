@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+
+	<context:annotation-config></context:annotation-config>
+	<context:component-scan
+		base-package="com.sujata"></context:component-scan>
+
+	<context:property-placeholder
+		location="classpath:DbConnection.properties" />
+
+	<!-- loads the driver and establish connect : Class.forName(), DriverManager.getConnection() 
+		+handling the exception being thrown by these two methods -->
+	<bean id=""
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName"
+			value="${db.driverClassName}"></property>
+		<property name="url" value="${db.url}"></property>
+		<property name="username" value="${db.userName}"></property>
+		<property name="password" value="${db.password}"></property>
+	</bean>
+</beans>
