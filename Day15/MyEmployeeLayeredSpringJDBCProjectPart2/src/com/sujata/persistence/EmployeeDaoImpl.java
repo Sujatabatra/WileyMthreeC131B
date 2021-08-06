@@ -43,7 +43,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
 
 	@Override
 	public Employee getRecordById(int id){
-		Employee employee=jdbcTemplate.queryForObject("SELECT * from EMP where ID=?",new Object[] {id}, new EmployeeRowMapper());
+		Employee employee=jdbcTemplate.queryForObject("SELECT * from EMP where ID=?",new EmployeeRowMapper(),id);
 		return employee;
 	}
 
