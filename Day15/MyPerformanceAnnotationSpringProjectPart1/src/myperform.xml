@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+		
+		<beans:bean id="Mahesh" class="com.sujata.producer.Dancer">
+			<beans:constructor-arg name="style" value="Bharatnatyam"></beans:constructor-arg>
+		</beans:bean>
+		
+		<annotation-config></annotation-config>
+		<component-scan base-package="com.sujata.producer"></component-scan>
+</beans:beans>
+
+<!-- 
+from beans schema we are using three tags : beans, bean and constructor-arg
+
+from context schema we are usinf two tags : annotation-config, component-scan
+
+if we are making use of multiple schemas : one schema specified on first line is primary
+and rest of the schemas will be secondary
+
+we can use tags from primarey schema only by specifying tagname<tagname>
+but we can use tags from secondary schema by using namespace name <namespace:tagname>
+ -->
+
