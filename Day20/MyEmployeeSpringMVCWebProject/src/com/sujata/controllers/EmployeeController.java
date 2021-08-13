@@ -67,4 +67,23 @@ public class EmployeeController {
 		
 		return modelAndView;
 	}
+	
+	@RequestMapping("/updateEmpPage")
+	public ModelAndView updateEmployeePageController() {
+		return new ModelAndView("updateEmp");
+	}
+	
+	@RequestMapping("/updateEmp")
+	public ModelAndView updateEmployeeController(HttpServletRequest request) {
+		int id=Integer.parseInt(request.getParameter("empId"));
+		int salary=Integer.parseInt(request.getParameter("empSalary"));
+		
+		String message=null;
+		if(employeeService.UpdateEmployeeSalary(id, salary))
+			message="Employee Salary Updated Succesfully";
+		else
+			message="Employee Salary not Updated";
+		
+		return new ModelAndView("output", "message", message);
+	}
 }
