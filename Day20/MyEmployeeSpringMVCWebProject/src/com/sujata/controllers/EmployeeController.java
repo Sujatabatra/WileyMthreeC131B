@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.sujata.bean.Employee;
+import com.sujata.bean.EmployeePaySlip;
 import com.sujata.model.service.EmployeeService;
 
 @Controller
@@ -85,5 +86,28 @@ public class EmployeeController {
 			message="Employee Salary not Updated";
 		
 		return new ModelAndView("output", "message", message);
+	}
+	
+	@RequestMapping("/searchEmpPage")
+	public ModelAndView searchEmpPageController() {
+		return new ModelAndView("searchEmp");
+	}
+	
+	@RequestMapping("/searchEmp")
+	public ModelAndView searchEmpController(HttpServletRequest request) {
+		Employee employee=employeeService.searchEmployeeById(Integer.parseInt(request.getParameter("empId")));
+		return new ModelAndView("showEmp", "employee", employee);
+	}
+	
+	@RequestMapping("/generatePaySlipPage")
+	public ModelAndView generatePaySlipPageController() {
+		return new ModelAndView("inputEmpIdForPaySlip");
+	}
+	
+	@RequestMapping("/payslip")
+	public ModelAndView paysipController(HttpServletRequest request) {
+		EmployeePaySlip payslip=employeeService.getPaySlip(Integer.parseInt(request.getParameter("empId")));
+		
+		return new ModelAndView("showPayslip", "payslip", payslip);
 	}
 }

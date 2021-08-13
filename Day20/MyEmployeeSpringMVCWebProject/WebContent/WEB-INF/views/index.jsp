@@ -9,9 +9,9 @@
 <body>
 <h1>Employee Management System</h1>
 <a href="./insertEmpPage">Insert Employee</a><br><br>
-<a href="">Search Employee By ID</a><br><br>
+<a href="./searchEmpPage">Search Employee By ID</a><br><br>
 <a href="./deleteEmpPage">Delete Employee</a><br><br>
 <a href="./updateEmpPage">Update Employee Salary</a><br><br>
-<a href="">Generate Employee Payslip</a><br><br>
+<a href="./generatePaySlipPage">Generate Employee Payslip</a><br><br>
 </body>
 </html>
