@@ -13,5 +13,7 @@ Enter Employee ID : <input type="text" name="empId"><br><br>
 Enter Employee New Salary : <input type="text" name="empSalary"><br><br>
 <input type="submit" value="Update Salary">
 </form>
+<br><br>
+<a href="./">GO To Main Page</a>
 </body>
 </html>

@@ -1,5 +1,7 @@
 package com.sujata.controllers;
 
+import java.util.Collection;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -109,5 +111,12 @@ public class EmployeeController {
 		EmployeePaySlip payslip=employeeService.getPaySlip(Integer.parseInt(request.getParameter("empId")));
 		
 		return new ModelAndView("showPayslip", "payslip", payslip);
+	}
+	
+	@RequestMapping("/displayAllEmps")
+	public ModelAndView displayAllEmployeesController() {
+		Collection<Employee> emps=employeeService.getAllEmployees();
+
+		return new ModelAndView("displayAllEmployees", "employees", emps);
 	}
 }
