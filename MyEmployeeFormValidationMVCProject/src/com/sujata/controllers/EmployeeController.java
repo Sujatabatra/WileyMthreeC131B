@@ -36,14 +36,15 @@ public class EmployeeController {
 	
 	@RequestMapping("/")
 	public ModelAndView loginPageController() {
-		return new ModelAndView("login","command",new User());
+		return new ModelAndView("login","user",new User());
 	}
 	
 	@RequestMapping("/login")
-	public ModelAndView loginCheck(@ModelAttribute User usr/*,HttpSession session*/){
+	public ModelAndView loginCheck(@ModelAttribute("user") User usr/*,HttpSession session*/){
 		ModelAndView modelAndView=new ModelAndView();
 		
 		User user=userService.getUserByCredentials(usr);
+		modelAndView.addObject("user", usr);
 		String message;
 		if(usr==null) {
 			message="Invalid Login Credentials";

@@ -11,7 +11,7 @@
 </head>
 <body>
 <h1>Employee Management System</h1>
-<spring:form action="./login">
+<spring:form action="./login" modelAttribute="user">
 Enter UserName : <spring:input path="username"/><br><br>
 Enter password : <spring:password path="password"/><br><br>
 <input type="submit" value="Login">
