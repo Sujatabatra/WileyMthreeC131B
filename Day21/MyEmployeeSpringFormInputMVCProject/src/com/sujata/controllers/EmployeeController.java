@@ -1,6 +1,8 @@
 package com.sujata.controllers;
 
 import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -30,6 +32,12 @@ public class EmployeeController {
 	public ModelAndView insertEmpPageController(){
 //		return new ModelAndView("insertEmp","command",new Employee());
 		return new ModelAndView("insertEmp","emp",new Employee());
+	}
+	
+	@ModelAttribute("empIds")
+	public List<Integer> getAllIds(){
+		return employeeService.getAllEmployees().stream()
+				.map(Employee::getEmpId).collect(Collectors.toList());
 	}
 	
 	@RequestMapping("/save")
@@ -77,16 +85,16 @@ public class EmployeeController {
 	
 	@RequestMapping("/updateEmpPage")
 	public ModelAndView updateEmployeePageController() {
-		return new ModelAndView("updateEmp");
+		return new ModelAndView("updateEmp","command",new Employee());
 	}
 	
 	@RequestMapping("/updateEmp")
-	public ModelAndView updateEmployeeController(HttpServletRequest request) {
-		int id=Integer.parseInt(request.getParameter("empId"));
-		int salary=Integer.parseInt(request.getParameter("empSalary"));
+	public ModelAndView updateEmployeeController(@ModelAttribute Employee employee/*HttpServletRequest request*/) {
+//		int id=Integer.parseInt(request.getParameter("empId"));
+//		int salary=Integer.parseInt(request.getParameter("empSalary"));
 		
 		String message=null;
-		if(employeeService.UpdateEmployeeSalary(id, salary))
+		if(employeeService.UpdateEmployeeSalary(employee.getEmpId(), employee.getEmpSalary()))
 			message="Employee Salary Updated Succesfully";
 		else
 			message="Employee Salary not Updated";
