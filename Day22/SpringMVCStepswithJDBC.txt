@@ -1,0 +1,6 @@
+1. Create Spring boot project with packaging as war and dependency : Spring Web, MySql,JDBC API, LOMBOK
+2. we added JSTL, JSP and Hibernate Validator Depedency in pom.xml
+3. created WEB-INF folder inside webapp and inside WEB-INF folder created views
+4. added property for port change and prefix and suffix and JDBC configuration in application.properties
+5. create controllers and model classes 
+6. create JSP in views folder
