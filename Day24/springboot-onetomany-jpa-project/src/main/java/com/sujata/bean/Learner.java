@@ -1,6 +1,8 @@
 package com.sujata.bean;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
@@ -15,7 +17,7 @@ public class Learner {
 	@Id
 	private String learnerId;
 	private String learnerName;
-	@ManyToOne //Many learners can have one trainer
+	@ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER) //Many learners can have one trainer
 	private Trainer trainer;
 	
 	public Learner() {

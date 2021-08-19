@@ -30,27 +30,34 @@ public class SpringbootFirstJpaProjectApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		Learner l1=new Learner("L001","Learner1");
-		Learner l2=new Learner("L002","Learner2");
-		Learner l3=new Learner("L003","Learner3");
-		Learner l4=new Learner("L004","Learner4");
 		
-		Trainer t1=new Trainer("T001", "Trainer 1");
-		Trainer t2=new Trainer("T002", "Trainer 2");
+		Learner l1=learnerDao.getById("L002");
+		System.out.println(l1.getLearnerId()+"  "+l1.getLearnerName());
 		
-		l1.setTrainer(t1);
-		l2.setTrainer(t2);
-		l3.setTrainer(t1);
-		l4.setTrainer(t2);
+		Learner l2=learnerDao.getById("L002");
+		System.out.println(l2.getLearnerId()+"  "+l2.getLearnerName());
 		
-		
-		trainerDao.save(t1);
-		trainerDao.save(t2);
-		
-		learnerDao.save(l1);
-		learnerDao.save(l2);
-		learnerDao.save(l3);
-		learnerDao.save(l4);
+//		Learner l1=new Learner("L001","Learner1");
+//		Learner l2=new Learner("L002","Learner2");
+//		Learner l3=new Learner("L003","Learner3");
+//		Learner l4=new Learner("L004","Learner4");
+//		
+//		Trainer t1=new Trainer("T001", "Trainer 1");
+//		Trainer t2=new Trainer("T002", "Trainer 2");
+//		
+//		l1.setTrainer(t1);
+//		l2.setTrainer(t2);
+//		l3.setTrainer(t1);
+//		l4.setTrainer(t2);
+//		
+//		
+//		trainerDao.save(t1);
+//		trainerDao.save(t2);
+//		
+//		learnerDao.save(l1);
+//		learnerDao.save(l2);
+//		learnerDao.save(l3);
+//		learnerDao.save(l4);
 		
 		
 		
