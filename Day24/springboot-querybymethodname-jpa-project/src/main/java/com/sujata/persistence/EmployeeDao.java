@@ -23,13 +23,6 @@ import com.sujata.bean.Employee;
 @Repository
 public interface EmployeeDao extends JpaRepository<Employee, Integer>{
 
-	@Query("SELECT empName from Employee where empId=:eid")
-	public String getNameById(@Param("eid") int id);
-	
-	@Query("from Employee where designation=:des")
-	public List<Employee> getByDesignation(@Param("des") String desig);
-	
-	@Query("from Employee where department=?1")
-	public List<Employee> getByDepartment(String depart);
+	List<Employee> getEmployeeByEmpName(String name);
 	
 }

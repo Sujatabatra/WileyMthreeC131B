@@ -1,0 +1,8 @@
+Creating Query Methods 
+The query generation from the method name is query generation strategy where the invoked query is dervived from the name of the query method
+1. Name of query starts with by,read...By,query...By.count...By, get...By
+2. if we want to limit the number of returned query results, we can add First or the Top keyword before the firt By word. If we want to get more than one result , we have to append the optional numeric value to the First and Top keywprds.
+e.g FindTop1By...
+3.If you want to select unique results , we have to add the Distinct keyword before the first By word.
+e.g. findDistinctTitleBy....
+ 

@@ -27,17 +27,8 @@ public class SpringbootFirstJpaProjectApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-//		Employee e1=new Employee(103, "Charu", "Associate", "Marketing", 35000);
-//		Employee e2=new Employee(104, "Dhiraj", "Manager", "IT", 125000);
-//		
-//		empService.insertEmployee(e1);
-//		empService.insertEmployee(e2);
-		String na=empDao.getNameById(102);
-		System.out.println("Name : "+na);
-		
-		System.out.println(empDao.getByDesignation("Manager"));
-		
-		System.out.println(empDao.getByDepartment("IT"));
-	}
+			
+		System.out.println(empDao.getEmployeeByEmpName("Ashish"));
+		}
 
 }
