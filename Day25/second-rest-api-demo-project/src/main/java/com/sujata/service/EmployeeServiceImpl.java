@@ -25,11 +25,12 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 
 	@Override
-	public boolean insertEmployee(Employee employee){
+	public Employee insertEmployee(Employee employee){
 		Employee e=empDao.save(employee);
-		if(e!=null)
-			return true;
-		return false;
+		return e;
+//		if(e!=null)
+//			return true;
+//		return false;
 	}
 /*
  * HR :15% of salary

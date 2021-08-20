@@ -10,7 +10,7 @@ import com.sujata.bean.EmployeePaySlip;
 public interface EmployeeService {
 
 	Collection<Employee> getAllEmployees();
-	boolean insertEmployee(Employee employee);
+	Employee insertEmployee(Employee employee);
 	EmployeePaySlip getPaySlip(int id);
 	Employee getEmployeeById(int id);
 }
