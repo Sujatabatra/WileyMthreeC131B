@@ -58,4 +58,20 @@ public class EmployeeServiceImpl implements EmployeeService {
 		return emp;
 	}
 
+	@Override
+	public Employee deleteEmployeeById(int id) {
+		Employee emp=empDao.getById(id);
+		empDao.deleteById(id);
+		return emp;
+	}
+
+	@Override
+	public Employee modifySalary(int id, int salary) {
+		int rows=empDao.updateEmployeeSaalry(id, salary);
+		Employee emp=null;
+		if(rows>0)
+			emp=empDao.getById(id);
+		return emp;
+	}
+
 }

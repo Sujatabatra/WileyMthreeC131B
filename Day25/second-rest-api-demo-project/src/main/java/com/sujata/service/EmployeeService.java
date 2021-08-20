@@ -13,4 +13,6 @@ public interface EmployeeService {
 	Employee insertEmployee(Employee employee);
 	EmployeePaySlip getPaySlip(int id);
 	Employee getEmployeeById(int id);
+	Employee deleteEmployeeById(int id);
+	Employee modifySalary(int id,int salary);
 }
