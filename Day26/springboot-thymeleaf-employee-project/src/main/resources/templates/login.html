@@ -5,6 +5,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+<h2 th:text="'Welcome '+ ${user.username }+'!'"></h2>
 <h1>Employee Management System</h1>
 
 <form action="#" th:action="@{./login}" th:object="${user}" >

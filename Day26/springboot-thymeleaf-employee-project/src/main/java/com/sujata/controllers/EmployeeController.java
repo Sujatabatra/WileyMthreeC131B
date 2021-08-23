@@ -1,5 +1,6 @@
 package com.sujata.controllers;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -69,18 +70,23 @@ public class EmployeeController {
 		return new ModelAndView("insertEmp", "emp", new Employee());
 	}
 
+	@ModelAttribute("empDeptts")
+	public List<String> getAllDepatments(){
+		return Arrays.asList("Sales","IT","Purchase","Marketing");
+	}
+	
 	@ModelAttribute("empIds")
 	public List<Integer> getAllIds() {
 		return employeeService.getAllEmployees().stream().map(Employee::getEmpId).collect(Collectors.toList());
 	}
 
 	@RequestMapping("/save")
-	public ModelAndView insertEmployee(@ModelAttribute("emp") Employee employee,
-			BindingResult result/* HttpServletRequest request */) {
+	public ModelAndView insertEmployee(@ModelAttribute("emp") Employee employee/*,
+			BindingResult result HttpServletRequest request */) {
 		ModelAndView modelAndView = new ModelAndView();
-		if (result.hasErrors()) {
-			return new ModelAndView("insertEmp", "command", new Employee());
-		}
+//		if (result.hasErrors()) {
+//			return new ModelAndView("insertEmp", "command", new Employee());
+//		}
 
 		String message = null;
 		if (employeeService.insertEmployee(employee))
