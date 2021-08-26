@@ -1,5 +1,6 @@
 import SidePane from "./SidePane";
 import EventsDemo from "./EventsDemo";
+import UserHookDemo from "./UserHookDemo";
 
 const Home = () => {
     return (
@@ -7,6 +8,7 @@ const Home = () => {
             <h2>Hi I am home Component!</h2>
             <SidePane message={"demonstrating props from Home Component"}/>
             <EventsDemo/>
+            <UserHookDemo/>
         </div>
       );
 }
