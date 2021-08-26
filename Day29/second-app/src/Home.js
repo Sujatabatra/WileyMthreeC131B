@@ -4,7 +4,7 @@ const Home = () => {
     return (
         <div className="home">
             <h2>Hi I am home Component!</h2>
-            <SidePane/>
+            <SidePane message={"demonstrating props from Home Component"}/>
         </div>
       );
 }

@@ -11,7 +11,7 @@ function App(props) {
     <div className="App">
       <h1>{name} {props.lastname} App Component</h1>
         <Home/>
-        <SidePane/>
+        <SidePane message={"Demonstrating props from App Component"}/>
     </div>
   );
 }
