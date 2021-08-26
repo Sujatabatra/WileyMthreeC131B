@@ -1,6 +1,7 @@
 
 import './App.css';
 import Home from './Home';
+import MovieList from './MovieList';
 import SidePane from './SidePane';
 
 function App(props) {
@@ -10,8 +11,9 @@ function App(props) {
   return (
     <div className="App">
       <h1>{name} {props.lastname} App Component</h1>
-        <Home/>
-        <SidePane message={"Demonstrating props from App Component"}/>
+        {/* <Home/> */}
+        <MovieList/>
+        {/* <SidePane message={"Demonstrating props from App Component"}/> */}
     </div>
   );
 }
