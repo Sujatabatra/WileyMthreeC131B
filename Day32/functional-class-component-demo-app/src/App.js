@@ -8,8 +8,8 @@ function App() {
     <div className="content">      
       <h1>Welcome to Sujata's React App!</h1>
         <DemoFunctionalComponent name="Deepika"/>
-        
-        <DemoClassComponent name="Ahmad"/>
+
+        <DemoClassComponent name="Ahmad" age="21"/>
     </div>
     </div>
   );
