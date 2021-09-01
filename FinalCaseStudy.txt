@@ -31,3 +31,31 @@ List<InventoryItem> getInventory()
 Spring boot : lombok,Spring Web , Data JPA, MySqlDriver 
 
 ====================================================================
+
+Order-service-project
+
+public class Order {
+
+    private Long id;
+
+    private String customerEmail;
+
+    private String customerAddress;
+
+    private List<OrderItem> items;
+
+}
+
+public class OrderItem {
+    
+    private Long id;
+    private Long productId;
+    private int quantity;
+    private BigDecimal productPrice;
+
+}
+Rest API
+Order createOrder(Order order) 
+findOrderById(Long id) 
+
+Spring Boot, Data JPA, Lombok, MySQL
