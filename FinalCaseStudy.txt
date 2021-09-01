@@ -1,0 +1,33 @@
+catalog-service project
+
+public class Product {
+    
+    private Long id;(Primary key)
+    private String code;
+    private String name;
+    private String description;
+    private double price;
+}
+
+Rest API
+public List<Product> listAllProducts()
+Optional<Product> getProductByCode(String code) 
+
+Spring Boot : Lombok, Spring web, MySqlDriver, JDBC API
+
+===================================================================
+
+inventory-service-project
+
+public class InventoryItem {
+    private Long id; (primary key)
+    private String productCode;
+    private Integer availableQuantity ;
+}
+
+findInventoryByProductCode(String productCode)
+List<InventoryItem> getInventory()
+
+Spring boot : lombok,Spring Web , Data JPA, MySqlDriver 
+
+====================================================================
